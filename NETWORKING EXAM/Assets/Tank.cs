@@ -27,9 +27,12 @@ public class Tank : MonoBehaviour
 		{
 			fire();
 		}
+
+        NetworkingManager.SendPosition(transform.position, transform.rotation.eulerAngles.y);
 	}
 	void fire()
 	{
 		newBullet = Instantiate(bullet, firePos.transform.position, Quaternion.LookRotation(this.transform.forward));
+        NetworkingManager.SendBullet(firePos.transform.position, this.transform.forward);
 	}
 }
