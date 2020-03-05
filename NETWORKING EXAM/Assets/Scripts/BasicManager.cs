@@ -8,6 +8,8 @@ public class BasicManager : MonoBehaviour
     public GameObject dummyTank;
     public GameObject bullet;
 
+    public static GameObject T1, T2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,13 @@ public class BasicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        NetworkingManager.ProcessPackets();
+        if (NetworkingManager.MY_ID == 0)
+        {
+            NetworkingManager.ProcessPackets(T1, T2);
+        }
+        else
+        {
+            NetworkingManager.ProcessPackets(T2, T1);
+        }
     }
 }

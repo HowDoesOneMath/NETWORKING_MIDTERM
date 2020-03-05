@@ -102,7 +102,7 @@ public class NetworkingManager : MonoBehaviour
         SendIntPtr(loc, (int)PACKET_TYPE.BULLET);
     }
 
-    public static void ProcessPackets()
+    public static void ProcessPackets(GameObject t1, GameObject t2)
     {
         int test = CheckForData();
         while (test > 0)
@@ -111,13 +111,13 @@ public class NetworkingManager : MonoBehaviour
             IntPtr data = GetData();
             Marshal.Copy(data, receiveBuffer, 0, test);
 
-            SwitchPacket();
+            SwitchPacket(t1, t2);
 
             test = CheckForData();
         }
     }
 
-    static void SwitchPacket()
+    static void SwitchPacket(GameObject t1, GameObject t2)
     {
         int loc = STAMP_OFFSET;
 
@@ -143,7 +143,11 @@ public class NetworkingManager : MonoBehaviour
                 UnpackFloat(ref receiveBuffer, ref loc, ref r);
                 if (MY_ID == 0)
                 {
-                    tank2.transform.SetPositionAndRotation(new Vector3(x, 0, y), Quaternion.Euler(0, r, 0));
+                    t2.transform.SetPositionAndRotation(new Vector3(x, 0, y), Quaternion.Euler(0, r, 0));
+                }
+                else
+                {
+                    t1.transform.SetPositionAndRotation(new Vector3(x, 0, y), Quaternion.Euler(0, r, 0));
                 }
                 break;
             case PACKET_TYPE.BULLET:

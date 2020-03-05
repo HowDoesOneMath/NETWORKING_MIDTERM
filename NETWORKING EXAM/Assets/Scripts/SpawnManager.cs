@@ -11,8 +11,8 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(NetworkingManager.tank1, s1, Quaternion.identity);
-        Instantiate(NetworkingManager.tank2, s1, Quaternion.AngleAxis(180, Vector3.up));
+        BasicManager.T1 = Instantiate(NetworkingManager.tank1, s1, Quaternion.identity);
+        BasicManager.T2 = Instantiate(NetworkingManager.tank2, s1, Quaternion.AngleAxis(180, Vector3.up));
     }
 
     // Update is called once per frame
