@@ -1,1 +1,3 @@
 NETWORKING_MIDTERM
+Nathan Boldy 100653593 
+Jakob Anderson 100657516
