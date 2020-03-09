@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         BasicManager.T1 = Instantiate(NetworkingManager.tank1, s1, Quaternion.identity);
-        BasicManager.T2 = Instantiate(NetworkingManager.tank2, s1, Quaternion.AngleAxis(180, Vector3.up));
+        BasicManager.T2 = Instantiate(NetworkingManager.tank2, s1, Quaternion.identity * Quaternion.AngleAxis(180, Vector3.up));
     }
 
     // Update is called once per frame

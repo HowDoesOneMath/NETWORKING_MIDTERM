@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BasicManager : MonoBehaviour
 {
+    public static int[] score = new int[2];
+
     public GameObject realTank;
     public GameObject dummyTank;
     public GameObject bullet;
@@ -11,8 +13,11 @@ public class BasicManager : MonoBehaviour
     public static GameObject T1, T2;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        score[0] = 0;
+        score[1] = 0;
+
         if (NetworkingManager.MY_ID == 0)
         {
             NetworkingManager.tank1 = realTank;
@@ -32,11 +37,11 @@ public class BasicManager : MonoBehaviour
     {
         if (NetworkingManager.MY_ID == 0)
         {
-            NetworkingManager.ProcessPackets(T1, T2);
+            NetworkingManager.ProcessPackets(T2);
         }
         else
         {
-            NetworkingManager.ProcessPackets(T2, T1);
+            NetworkingManager.ProcessPackets(T1);
         }
     }
 }

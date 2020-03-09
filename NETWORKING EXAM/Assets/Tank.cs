@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Tank : MonoBehaviour
 {
+    public float timeDelay = 0f;
+    float timestep = 0.02f;
+    float currentDelay = 0;
 	public float speed = 5.0f;
 	public float rotate = 10.0f;
 	public GameObject bullet;
@@ -28,7 +31,36 @@ public class Tank : MonoBehaviour
 			fire();
 		}
 
-        NetworkingManager.SendPosition(transform.position, transform.rotation.eulerAngles.y);
+        if (Input.GetKeyUp(KeyCode.LeftBracket))
+        {
+            timeDelay += timestep;
+        }
+        if (Input.GetKeyUp(KeyCode.RightBracket)
+        {
+            timeDelay = Mathf.Max(timeDelay - timestep, 0f);
+        }
+        if (Input.GetKeyUp(KeyCode.Backslash))
+        {
+            timeDelay = 0f;
+        }
+
+        currentDelay -= Time.deltaTime;
+
+        if (currentDelay <= 0f)
+        {
+            NetworkingManager.SendPosition(transform.position, transform.rotation.eulerAngles.y);
+            if (timeDelay == 0)
+            {
+                currentDelay = 0;
+            }
+            else
+            {
+                while (currentDelay <= 0)
+                {
+                    currentDelay += timeDelay;
+                }
+            }
+        }
 	}
 	void fire()
 	{
