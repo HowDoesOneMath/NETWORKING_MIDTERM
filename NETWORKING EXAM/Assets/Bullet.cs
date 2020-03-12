@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
 				}
 			if (hit.transform.gameObject.GetComponentInParent<Tank>()) 
 			{
-				hit.transform.gameObject.GetComponentInParent<Tank>().die();
+				//hit.transform.gameObject.GetComponentInParent<Tank>().die();
 				Destroy(this.gameObject);
 			}
 
