@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Tank : MonoBehaviour
 {
+	public LayerMask collisionMask;
     public float timeDelay = 0f;
     float timestep = 0.02f;
     float currentDelay = 0;
@@ -15,16 +16,27 @@ public class Tank : MonoBehaviour
 	private void Update()
 	{
 
-		if (Input.GetKey(KeyCode.W))
-			transform.position += transform.forward * Time.deltaTime * speed;
+		RaycastHit hit;
 
-		if (Input.GetKey(KeyCode.S))
-			transform.position -= transform.forward * Time.deltaTime * speed;
+		if (!Physics.SphereCast(transform.position, 1f, transform.forward, out hit, Time.deltaTime * speed + .1f, collisionMask))
+		{
+			if (Input.GetKey(KeyCode.W))
+			{
+				transform.position += transform.forward * Time.deltaTime * speed;
+			}
+		}
+		if (!Physics.SphereCast(transform.position, 1f, -transform.forward, out hit, Time.deltaTime * speed + .1f, collisionMask))
+		{
+			if (Input.GetKey(KeyCode.S))
+			{
+				transform.position -= transform.forward * Time.deltaTime * speed;
+			}
+		}
 
-		if (Input.GetKey(KeyCode.D))
+		if (Input.GetKey(KeyCode.D)&&!Input.GetKey(KeyCode.W)&& !Input.GetKey(KeyCode.S))
 			transform.Rotate(Vector3.up * Time.deltaTime * rotate);
 
-		if (Input.GetKey(KeyCode.A))
+		if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
 			transform.Rotate(Vector3.down * Time.deltaTime * rotate);
 		if (Input.GetKeyDown(KeyCode.Mouse0))
 		{
@@ -35,7 +47,7 @@ public class Tank : MonoBehaviour
         {
             timeDelay += timestep;
         }
-        if (Input.GetKeyUp(KeyCode.RightBracket)
+        if (Input.GetKeyUp(KeyCode.RightBracket))
         {
             timeDelay = Mathf.Max(timeDelay - timestep, 0f);
         }
@@ -64,7 +76,14 @@ public class Tank : MonoBehaviour
 	}
 	void fire()
 	{
-		newBullet = Instantiate(bullet, firePos.transform.position, Quaternion.LookRotation(this.transform.forward));
-        NetworkingManager.SendBullet(firePos.transform.position, this.transform.forward);
+		if (newBullet == null)
+		{
+			newBullet = Instantiate(bullet, firePos.transform.position, Quaternion.LookRotation(this.transform.forward));
+			NetworkingManager.SendBullet(firePos.transform.position, this.transform.forward);
+		}
+	}
+	public void die()
+	{
+		Destroy(this.gameObject);
 	}
 }
