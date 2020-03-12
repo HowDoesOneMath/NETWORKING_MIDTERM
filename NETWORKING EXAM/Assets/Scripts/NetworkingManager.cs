@@ -141,6 +141,7 @@ public class NetworkingManager : MonoBehaviour
                 if (MY_ID < 0)
                 {
                     UnpackInt(ref receiveBuffer, ref loc, ref MY_ID);
+                    Debug.Log(MY_ID);//
                     SceneManager.LoadScene(1);
                 }
                 break;
