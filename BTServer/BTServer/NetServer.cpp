@@ -104,7 +104,7 @@ bool Server::ListenForSocket(int LISTEN_LENGTH, addrinfo* ptr)
 bool Server::ListenForClient()
 {
 	if (clients[0].connected && clients[1].connected)
-		return false;
+		return true;
 	
 	for (int i = 0; i < 2; ++i)
 	{
@@ -188,7 +188,7 @@ void Server::ReceiveUpdates()
 						UnpackData<float>(&receiveBuffer[0], &loc, &y);
 						UnpackData<float>(&receiveBuffer[0], &loc, &r);
 
-						std::cout << "GOT POSITION AND ROTATION OF P" << i << ": " << x << ", " << y << ", ROT: " << r << std::endl;
+						//std::cout << "GOT POSITION AND ROTATION OF P" << i << ": " << x << ", " << y << ", ROT: " << r << std::endl;
 						break;
 					case (int)PACKET_TYPE::BULLET:
 						float bx, by, vx, vy;

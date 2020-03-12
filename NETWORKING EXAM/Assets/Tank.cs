@@ -12,6 +12,7 @@ public class Tank : MonoBehaviour
 	public GameObject bullet;
 	public GameObject firePos;
 	private GameObject newBullet;
+    public float defaultDelay = 0.033f;
 
 	private void Update()
 	{
@@ -61,7 +62,7 @@ public class Tank : MonoBehaviour
         if (currentDelay <= 0f)
         {
             NetworkingManager.SendPosition(transform.position, transform.rotation.eulerAngles.y);
-            if (timeDelay == 0)
+            if (timeDelay + defaultDelay == 0)
             {
                 currentDelay = 0;
             }
@@ -69,7 +70,7 @@ public class Tank : MonoBehaviour
             {
                 while (currentDelay <= 0)
                 {
-                    currentDelay += timeDelay;
+                    currentDelay += (timeDelay + defaultDelay);
                 }
             }
         }
