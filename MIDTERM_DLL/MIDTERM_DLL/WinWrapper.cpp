@@ -88,6 +88,10 @@ PLUGIN_OUT int CheckForData()
 		if (length > 0)
 			return length;
 	}
+	else
+	{
+		recv(cs.s, &cs.receiveBuffer[0], MAX_PACKET_SIZE, 0);
+	}
 
 	return -1;
 }

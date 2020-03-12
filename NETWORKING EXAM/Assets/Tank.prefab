@@ -492,6 +492,7 @@ MonoBehaviour:
   rotate: 50
   bullet: {fileID: 2605595734304752042, guid: 07f270244c2b5d34db13b30639a6e113, type: 3}
   firePos: {fileID: 5775806819666764314}
+  defaultDelay: 0.033
 --- !u!143 &9068965990577098662
 CharacterController:
   m_ObjectHideFlags: 0

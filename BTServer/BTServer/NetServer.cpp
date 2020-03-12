@@ -171,6 +171,36 @@ void Server::ReceiveUpdates()
 			{
 				if (send(clients[1 - i].clientSocket, &receiveBuffer[0], MAX_PACKET_SIZE, 0) == SOCKET_ERROR)
 				{
+					if (WSAGetLastError() == WSAEWOULDBLOCK)
+					{
+						int pType = 0;
+						int length = 0;
+						UnpackData<int>(&receiveBuffer[0], &loc, &length);
+						UnpackData<int>(&receiveBuffer[0], &loc, &pType);
+
+						switch (pType)
+						{
+						case (int)PACKET_TYPE::POSITION:
+							float x, y, r;
+							UnpackData<float>(&receiveBuffer[0], &loc, &x);
+							UnpackData<float>(&receiveBuffer[0], &loc, &y);
+							UnpackData<float>(&receiveBuffer[0], &loc, &r);
+
+							std::cout << "FAILED!!!!!!: GOT POSITION AND ROTATION OF P" << i << ": " << x << ", " << y << ", ROT: " << r << std::endl;
+							break;
+						case (int)PACKET_TYPE::BULLET:
+							float bx, by, vx, vy;
+							UnpackData<float>(&receiveBuffer[0], &loc, &bx);
+							UnpackData<float>(&receiveBuffer[0], &loc, &by);
+							UnpackData<float>(&receiveBuffer[0], &loc, &vx);
+							UnpackData<float>(&receiveBuffer[0], &loc, &vy);
+
+							std::cout << "FAILED!!!!!!: BULLET LAUNCHED:" << i << ": " << bx << ", " << by
+								<< " IN DIRECTION " << vx << ", " << vy << std::endl;
+							break;
+						}
+					}
+
 					ErrDebug("Failed to relay packet");
 				}
 				else
