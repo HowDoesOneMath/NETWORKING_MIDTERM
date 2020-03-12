@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-	
+    public int B_ID = -1;
 	public LayerMask collisionMask;
 	private int bounceCount;
     // Start is called before the first frame update
@@ -16,7 +16,9 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
 		transform.Translate(Vector3.forward * Time.deltaTime * 10);
+
 
 		Ray projectileRay = new Ray(transform.position, transform.forward);
 		RaycastHit hit;
@@ -36,13 +38,26 @@ public class Bullet : MonoBehaviour
 				{
 					Destroy(this.gameObject);
 				}
-			if (hit.transform.gameObject.GetComponentInParent<Tank>()) 
-			{
-				//hit.transform.gameObject.GetComponentInParent<Tank>().die();
-				Destroy(this.gameObject);
-			}
 
-			
+            if (B_ID == NetworkingManager.MY_ID)
+            {
+                Tank tnk = hit.transform.gameObject.GetComponentInParent<Tank>();
+
+                if (tnk != null)
+                {
+                    if (tnk.isYou)
+                    {
+                        NetworkingManager.SendScore(1 - NetworkingManager.MY_ID);
+                    }
+                    else
+                    {
+                        NetworkingManager.SendScore(NetworkingManager.MY_ID);
+                    }
+                    //hit.transform.gameObject.GetComponentInParent<Tank>().die();
+                    Destroy(this.gameObject);
+                }
+
+            }
 		}
 		
     }

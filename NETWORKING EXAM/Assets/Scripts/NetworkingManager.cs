@@ -102,11 +102,14 @@ public class NetworkingManager : MonoBehaviour
         SendIntPtr(loc, (int)PACKET_TYPE.BULLET);
     }
 
-    public static void SendScore()
+    public static void SendScore(int id)
     {
+        int loc = INITIAL_OFFSET;
+        PackData(ref sendBuffer, ref loc, id);
+
         if (SendIntPtr(INITIAL_OFFSET, (int)PACKET_TYPE.SCORE))
         {
-            BasicManager.score[MY_ID]++;
+            BasicManager.score[id]++;
         }
     }
 
@@ -159,9 +162,12 @@ public class NetworkingManager : MonoBehaviour
                 UnpackFloat(ref receiveBuffer, ref loc, ref vx);
                 UnpackFloat(ref receiveBuffer, ref loc, ref vy);
                 GameObject newBul = Instantiate(bullet, new Vector3(bx, bullet.transform.position.y, by), Quaternion.LookRotation(new Vector3(vx, 0, vy)));
+                newBul.GetComponent<Bullet>().B_ID = 1 - MY_ID;
                 break;
             case PACKET_TYPE.SCORE:
-                BasicManager.score[1 - MY_ID]++;
+                int id = -1;
+                UnpackInt(ref receiveBuffer, ref loc, ref id);
+                BasicManager.score[id]++;
                 break;
         }
     }
