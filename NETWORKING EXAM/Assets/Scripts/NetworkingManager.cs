@@ -19,6 +19,7 @@ public class NetworkingManager : MonoBehaviour
 {
     public static GameObject tank1, tank2;
     public static GameObject bullet;
+    static GameObject tankBullet;
 
     public static int INITIAL_OFFSET = 12;
     public static int MAX_PACKET_SIZE = 100;
@@ -161,8 +162,10 @@ public class NetworkingManager : MonoBehaviour
                 UnpackFloat(ref receiveBuffer, ref loc, ref by);
                 UnpackFloat(ref receiveBuffer, ref loc, ref vx);
                 UnpackFloat(ref receiveBuffer, ref loc, ref vy);
-                GameObject newBul = Instantiate(bullet, new Vector3(bx, bullet.transform.position.y, by), Quaternion.LookRotation(new Vector3(vx, 0, vy)));
-                newBul.GetComponent<Bullet>().B_ID = 1 - MY_ID;
+                if (tankBullet != null)
+                    Destroy(tankBullet);
+                tankBullet = Instantiate(bullet, new Vector3(bx, bullet.transform.position.y, by), Quaternion.LookRotation(new Vector3(vx, 0, vy)));
+                tankBullet.GetComponent<Bullet>().B_ID = 1 - MY_ID;
                 break;
             case PACKET_TYPE.SCORE:
                 int id = -1;
