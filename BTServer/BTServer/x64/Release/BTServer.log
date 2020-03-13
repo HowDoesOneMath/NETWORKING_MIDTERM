@@ -1,6 +1,6 @@
 ﻿  NetServer.cpp
 C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\UNITY_BT\NETWORKING_MIDTERM\BTServer\BTServer\NetServer.cpp(81): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\UNITY_BT\NETWORKING_MIDTERM\BTServer\BTServer\NetServer.cpp(252): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\UNITY_BT\NETWORKING_MIDTERM\BTServer\BTServer\NetServer.cpp(260): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
   Generating code
   2 of 132 functions ( 1.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

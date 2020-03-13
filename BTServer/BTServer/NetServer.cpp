@@ -227,9 +227,17 @@ void Server::ReceiveUpdates()
 						UnpackData<float>(&receiveBuffer[0], &loc, &vx);
 						UnpackData<float>(&receiveBuffer[0], &loc, &vy);
 
-						std::cout << "BULLET LAUNCHED:" << i << ": " << bx << ", " << by 
+						std::cout << "BULLET LAUNCHED: " << i << ": " << bx << ", " << by 
 							<< " IN DIRECTION " << vx << ", " << vy << std::endl;
 						break;
+					case (int)PACKET_TYPE::SCORE:
+						int score;
+						UnpackData<int>(&receiveBuffer[0], &loc, &score);
+
+						std::cout << "SCORED: " << score << std::endl;
+
+						break;
+
 					}
 				}
 			}

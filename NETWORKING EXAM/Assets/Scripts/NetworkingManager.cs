@@ -108,7 +108,7 @@ public class NetworkingManager : MonoBehaviour
         int loc = INITIAL_OFFSET;
         PackData(ref sendBuffer, ref loc, id);
 
-        if (SendIntPtr(INITIAL_OFFSET, (int)PACKET_TYPE.SCORE))
+        if (SendIntPtr(loc, (int)PACKET_TYPE.SCORE))
         {
             BasicManager.score[id]++;
         }
