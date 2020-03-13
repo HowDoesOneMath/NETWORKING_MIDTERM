@@ -23,27 +23,28 @@ public class Bullet : MonoBehaviour
 		Ray projectileRay = new Ray(transform.position, transform.forward);
 		RaycastHit hit;
 		Debug.DrawRay(transform.position, transform.forward);
-		if (Physics.Raycast(projectileRay, out hit, Time.deltaTime * 10 + .1f,collisionMask))
-		{
-			
-			
-				if (bounceCount <= 1)
-				{
-					Vector3 reflection = Vector3.Reflect(projectileRay.direction, hit.normal);
-					float rot = 90 - (Mathf.Atan2(reflection.z, reflection.x) * Mathf.Rad2Deg);
-					transform.eulerAngles = new Vector3(0, rot, 0);
-					bounceCount++;
-				}
-				else
-				{
-					Destroy(this.gameObject);
-				}
+        if (Physics.Raycast(projectileRay, out hit, Time.deltaTime * 10 + .1f, collisionMask))
+        {
 
-            if (B_ID == NetworkingManager.MY_ID)
+
+            if (bounceCount <= 1)
             {
-                Tank tnk = hit.transform.gameObject.GetComponentInParent<Tank>();
+                Vector3 reflection = Vector3.Reflect(projectileRay.direction, hit.normal);
+                float rot = 90 - (Mathf.Atan2(reflection.z, reflection.x) * Mathf.Rad2Deg);
+                transform.eulerAngles = new Vector3(0, rot, 0);
+                bounceCount++;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
 
-                if (tnk != null)
+            Tank tnk = hit.transform.gameObject.GetComponentInParent<Tank>();
+
+            if (tnk != null)
+            {
+
+                if (B_ID == NetworkingManager.MY_ID)
                 {
                     if (tnk.isYou)
                     {
@@ -53,12 +54,12 @@ public class Bullet : MonoBehaviour
                     {
                         NetworkingManager.SendScore(NetworkingManager.MY_ID);
                     }
-                    //hit.transform.gameObject.GetComponentInParent<Tank>().die();
-                    Destroy(this.gameObject);
                 }
-
+                //hit.transform.gameObject.GetComponentInParent<Tank>().die();
+                Destroy(this.gameObject);
             }
-		}
+
+        }
 		
     }
 }

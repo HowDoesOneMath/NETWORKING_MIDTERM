@@ -11,7 +11,7 @@ public class SetScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        compareID++;
+        ++compareID;
         myID = compareID;
         myText = GetComponent<Text>();
     }
