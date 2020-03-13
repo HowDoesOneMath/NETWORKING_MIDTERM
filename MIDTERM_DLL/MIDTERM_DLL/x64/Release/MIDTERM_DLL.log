@@ -1,9 +1,8 @@
-﻿  pch.cpp
-  dllmain.cpp
-  WinWrapper.cpp
-     Creating library C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\MIDTERM_DLL\x64\Release\MIDTERM_DLL.lib and object C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\MIDTERM_DLL\x64\Release\MIDTERM_DLL.exp
+﻿  WinWrapper.cpp
+     Creating library C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\UNITY_BT\NETWORKING_MIDTERM\MIDTERM_DLL\x64\Release\MIDTERM_DLL.lib and object C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\UNITY_BT\NETWORKING_MIDTERM\MIDTERM_DLL\x64\Release\MIDTERM_DLL.exp
   Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 15 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 15 functions ( 6.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  MIDTERM_DLL.vcxproj -> C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\MIDTERM_DLL\x64\Release\MIDTERM_DLL.dll
+  MIDTERM_DLL.vcxproj -> C:\Users\jakob\OneDrive\Documents\_YEAR_3\Sem 2\Networking\MIDTERM\UNITY_BT\NETWORKING_MIDTERM\MIDTERM_DLL\x64\Release\MIDTERM_DLL.dll
