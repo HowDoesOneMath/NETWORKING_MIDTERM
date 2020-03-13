@@ -99,6 +99,7 @@ public class NetworkingManager : MonoBehaviour
         PackData(ref sendBuffer, ref loc, pos.z);
         PackData(ref sendBuffer, ref loc, dir.x);
         PackData(ref sendBuffer, ref loc, dir.z);
+        PackData(ref sendBuffer, ref loc, pos.y);
 
         SendIntPtr(loc, (int)PACKET_TYPE.BULLET);
     }
@@ -157,14 +158,15 @@ public class NetworkingManager : MonoBehaviour
                 t.transform.SetPositionAndRotation(new Vector3(x, t.transform.position.y, y), Quaternion.Euler(0, r, 0));
                 break;
             case PACKET_TYPE.BULLET:
-                float vx = 0, vy = 0, bx = 0, by = 0;
+                float vx = 0, vy = 0, bx = 0, by = 0, H = 0;
                 UnpackFloat(ref receiveBuffer, ref loc, ref bx);
                 UnpackFloat(ref receiveBuffer, ref loc, ref by);
                 UnpackFloat(ref receiveBuffer, ref loc, ref vx);
                 UnpackFloat(ref receiveBuffer, ref loc, ref vy);
+                UnpackFloat(ref receiveBuffer, ref loc, ref H);
                 if (tankBullet != null)
                     Destroy(tankBullet);
-                tankBullet = Instantiate(bullet, new Vector3(bx, bullet.transform.position.y, by), Quaternion.LookRotation(new Vector3(vx, 0, vy)));
+                tankBullet = Instantiate(bullet, new Vector3(bx, H, by), Quaternion.LookRotation(new Vector3(vx, 0, vy)));
                 tankBullet.GetComponent<Bullet>().B_ID = 1 - MY_ID;
                 break;
             case PACKET_TYPE.SCORE:

@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
 		Debug.DrawRay(transform.position, transform.forward);
         if (Physics.Raycast(projectileRay, out hit, Time.deltaTime * 10 + .1f, collisionMask))
         {
-
+            Debug.Log("HIT A THING: " + hit.transform.gameObject.name);
 
             if (bounceCount <= 1)
             {
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
 
             if (tnk != null)
             {
-
+                //Debug.Log("HIT!");
                 if (B_ID == NetworkingManager.MY_ID)
                 {
                     if (tnk.isYou)
